@@ -1,6 +1,6 @@
 <html>
   <head>
-    <title>middleware.session API reference (Ring)</title>
+    <title>middleware.flash API reference (Ring)</title>
     <link href="static/favicon.png" rel="icon" />
     <link href="static/favicon.png" rel="shortcut icon" />
     <link media="all" type="text/css" href="static/clojure.css" rel="stylesheet" />
@@ -48,78 +48,25 @@ namespace.
   <div style="margin-left: 1em;" class="toc-section">
     <a href="#toc0">Overview</a>
     <div style="margin-left: 1em;" class="toc-entry">
-      <a href="#ring.middleware.session/wrap-session">wrap-session</a>
-    </div>
-    <br />
-  </div><div style="margin-left: 1em;" class="toc-section">
-    <a href="#middleware.session.cookie">middleware.session.cookie</a>
-    <div style="margin-left: 1em;" class="toc-entry">
-      <a href="#ring.middleware.session.cookie/cookie-store">cookie-store</a>
-    </div>
-    <br />
-  </div><div style="margin-left: 1em;" class="toc-section">
-    <a href="#middleware.session.memory">middleware.session.memory</a>
-    <div style="margin-left: 1em;" class="toc-entry">
-      <a href="#ring.middleware.session.memory/memory-store">memory-store</a>
+      <a href="#ring.middleware.flash/wrap-flash">wrap-flash</a>
     </div>
     <br />
   </div>
 </div>
 </div>
-                <div id="content-tag"><h1 id="overview">API for <span id="namespace-name">middleware.session</span></h1>
-<pre id="namespace-docstr">Session manipulation.</pre>
+                <div id="content-tag"><h1 id="overview">API for <span id="namespace-name">middleware.flash</span></h1>
+<pre id="namespace-docstr">A session-based flash store that persists to the next request.</pre>
 <div id="var-entry">
   <br />
   <hr />
-  <h2 id="ring.middleware.session/wrap-session">wrap-session</h2>
+  <h2 id="ring.middleware.flash/wrap-flash">wrap-flash</h2>
   <span id="var-type">function</span><br />
-  <pre id="var-usage">Usage: (wrap-session handler)
-       (wrap-session handler options)
+  <pre id="var-usage">Usage: (wrap-flash handler)
 </pre>
-  <pre id="var-docstr">Reads in the current HTTP session map, and adds it to the :session key on
-the request. If a :session key is added to the response by the handler, the
-session is updated with the new value. If the value is nil, the session is
-deleted.
-
-The following options are available:
-  :store
-    An implementation map containing :read, :write, and :delete
-    keys. This determines how the session is stored. Defaults to
-    in-memory storage.
-  :root
-    The root path of the session. Anything path above this will not
-    be able to see this session. Equivalent to setting the cookie's
-    path attribute. Defaults to "/".
-  :cookie-name
-    The name of the cookie that holds the session key. Defaults to
-    "ring-session"
-  :cookie-attrs
-    A map of attributes to associate with the session cookie. Defaults
-    to {}.</pre>
-  <a href="http://github.com/mmcgrana/ring/blob/013b92ac450041ea9ae4bc23f80a61cac64f02a9/ring-core/src/ring/middleware/session.clj#L6" id="var-source">Source</a>
-</div>
-<h2 id="namespace-name">middleware.session.cookie</h2>
-<pre id="namespace-docstr">Encrypted cookie session storage.</pre>
-<div id="var-entry">
-  <hr />
-  <h2 id="ring.middleware.session.cookie/cookie-store">cookie-store</h2>
-  <span id="var-type">function</span><br />
-  <pre id="var-usage">Usage: (cookie-store)
-       (cookie-store options)
-</pre>
-  <pre id="var-docstr">Creates an encrypted cookie storage engine.</pre>
-  <a href="http://github.com/mmcgrana/ring/blob/fa8c6f139714c67b98843405ef9a3ab39292ad55/ring-core/src/ring/middleware/session/cookie.clj#L80" id="var-source">Source</a>
-</div>
-<h2 id="namespace-name">middleware.session.memory</h2>
-<pre id="namespace-docstr">In-memory session storage.</pre>
-<div id="var-entry">
-  <hr />
-  <h2 id="ring.middleware.session.memory/memory-store">memory-store</h2>
-  <span id="var-type">function</span><br />
-  <pre id="var-usage">Usage: (memory-store)
-</pre>
-  <pre id="var-docstr">Creates an in-memory session storage engine.</pre>
-  <a href="http://github.com/mmcgrana/ring/blob/995ab0d024175cb7a3827a8017cae2dd218359fc/ring-core/src/ring/middleware/session/memory.clj#L5" id="var-source">Source</a>
+  <pre id="var-docstr">If a :flash key is set on the response by the handler, a :flash key with
+the same value will be set on the next request that shares the same session.
+This is useful for small messages that persist across redirects.</pre>
+  <a href="http://github.com/mmcgrana/ring/blob/0e01b2000283997b9e0e5e5637af9c386a1cbfb4/ring-core/src/ring/middleware/flash.clj#L4" id="var-source">Source</a>
 </div>
 
 
