@@ -104,7 +104,12 @@
                  (write-attr-map (dissoc value :value)))
       (write-value name value))))
 
-(defn- set-cookies
+(defn get-cookies
+  "Returns request map with a map of cookies under :cookies key."
+  [request]
+  (assoc request :cookies (parse-cookies request)))
+
+(defn set-cookies
   "Add a Set-Cookie header to a response if there is a :cookies key."
   [response]
   (if-let [cookies (:cookies response)]
